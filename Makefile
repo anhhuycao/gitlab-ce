@@ -1,4 +1,5 @@
 COMPOSE_FILE = docker-compose.yml
+PATH_GITLAB = ${HOME}
 
 ps:
 	docker compose -f ${COMPOSE_FILE} ps
@@ -7,6 +8,6 @@ log:
 down:
 	docker compose -f ${COMPOSE_FILE} down
 up:
-	docker compose -f ${COMPOSE_FILE} up -d
+	mkdir -p ${PATH_GITLAB}/gitlab && docker compose -f ${COMPOSE_FILE} up -d
 build:
 	docker compose -f ${COMPOSE_FILE} build
