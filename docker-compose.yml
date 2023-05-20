@@ -4,14 +4,21 @@ services:
     image: 'gitlab/gitlab-ce:15.11.4-ce.0'
     container_name: gitlab
     restart: unless-stopped
-    # hostname: 'localhost'
+    hostname: 'huycao.online'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://localhost'
+        external_url 'https://huycao.online'
+        gitlab_rails['time_zone'] = 'Asia/Ho_Chi_Minh'
+        nginx['redirect_http_to_https'] = true
+        letsencrypt['auto_renew'] = true
+        letsencrypt['auto_renew_hour'] = "12"
+        letsencrypt['auto_renew_minute'] = "30"
+        letsencrypt['auto_renew_day_of_month'] = "*/7"
+        letsencrypt['contact_emails'] = ['anhhuy.cao@gmail.com']
     ports:
-      - 0.0.0.0:8080:80
-      # - 0.0.0.0:443:443
-      - 0.0.0.0:2020:22
+      - 0.0.0.0:80:80
+      - 0.0.0.0:443:443
+      - 0.0.0.0:22:22
     volumes:
       - $HOME/gitlab/etc:/etc/gitlab
       - $HOME/gitlab/log:/var/log/gitlab
